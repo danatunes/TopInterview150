@@ -238,26 +238,49 @@
 
 
 
-from typing import Counter, List
+from typing import List
+from collections import Counter
+
 
 class Solution:
     def findSubstring(self, s: str, words: List[str]) -> List[int]:
         if(len(words) == 0 or len(s) == 0):
             return []
 
-        cnt = Counter(words)
-        m = len(s)
-        n = len(words)
-        k = len(words[0])
-        i=0
+        wordCount = Counter(words)
+        lengthOfString = len(s)
+        countOfWords = len(words)
+        wordLength = len(words[0])
+        ans = []
 
-        for i in range(k):
-            t = 0
-            l=i
-            r=k
-            cnt1 = 0
-            while l<r:
+        for i in range(wordLength):
+            l = r = i
+            windowWordCounter = Counter()
+            matchedWords = 0
+            
+            while r + wordLength <= lengthOfString:
+                word = s[r:r+wordLength]
+                r += wordLength
+
+                if word not in wordCount:
+                    l=r
+                    windowWordCounter.clear()
+                    matchedWords = 0
+                    continue
                 
+                windowWordCounter[word] += 1
+                matchedWords += 1
+
+                while windowWordCounter[word] > wordCount[word]:
+                    word_to_remove = s[l:l+wordLength]
+                    l += wordLength
+                    windowWordCounter[word_to_remove] -= 1
+                    matchedWords -= 1
+
+                if matchedWords == countOfWords:
+                    ans.append(l)
+        return ans
+
         
 
 
