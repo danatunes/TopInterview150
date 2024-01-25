@@ -238,52 +238,153 @@
 
 
 
-from typing import List
-from collections import Counter
+# from typing import List
+# from collections import Counter
 
 
-class Solution:
-    def findSubstring(self, s: str, words: List[str]) -> List[int]:
-        if(len(words) == 0 or len(s) == 0):
-            return []
+# class Solution:
+#     def findSubstring(self, s: str, words: List[str]) -> List[int]:
+#         if(len(words) == 0 or len(s) == 0):
+#             return []
 
-        wordCount = Counter(words)
-        lengthOfString = len(s)
-        countOfWords = len(words)
-        wordLength = len(words[0])
-        ans = []
+#         wordCount = Counter(words)
+#         lengthOfString = len(s)
+#         countOfWords = len(words)
+#         wordLength = len(words[0])
+#         ans = []
 
-        for i in range(wordLength):
-            l = r = i
-            windowWordCounter = Counter()
-            matchedWords = 0
+#         for i in range(wordLength):
+#             l = r = i
+#             windowWordCounter = Counter()
+#             matchedWords = 0
             
-            while r + wordLength <= lengthOfString:
-                word = s[r:r+wordLength]
-                r += wordLength
+#             while r + wordLength <= lengthOfString:
+#                 word = s[r:r+wordLength]
+#                 r += wordLength
 
-                if word not in wordCount:
-                    l=r
-                    windowWordCounter.clear()
-                    matchedWords = 0
-                    continue
+#                 if word not in wordCount:
+#                     l=r
+#                     windowWordCounter.clear()
+#                     matchedWords = 0
+#                     continue
                 
-                windowWordCounter[word] += 1
-                matchedWords += 1
+#                 windowWordCounter[word] += 1
+#                 matchedWords += 1
 
-                while windowWordCounter[word] > wordCount[word]:
-                    word_to_remove = s[l:l+wordLength]
-                    l += wordLength
-                    windowWordCounter[word_to_remove] -= 1
-                    matchedWords -= 1
+#                 while windowWordCounter[word] > wordCount[word]:
+#                     word_to_remove = s[l:l+wordLength]
+#                     l += wordLength
+#                     windowWordCounter[word_to_remove] -= 1
+#                     matchedWords -= 1
 
-                if matchedWords == countOfWords:
-                    ans.append(l)
-        return ans
+#                 if matchedWords == countOfWords:
+#                     ans.append(l)
+#         return ans
 
         
 
 
 
-b = Solution()
-print(b.findSubstring("barfoothefoobarman",["foo","bar"]))
+# b = Solution()
+# print(b.findSubstring("barfoothefoobarman",["foo","bar"]))
+
+
+# from collections import Counter
+# import math
+
+
+# class Solution:
+#     def minWindow(self, s: str, t: str) -> str:
+#         # if ((len(s) < len(t)) or (len(s) == len(t) and s != t)):
+#         #     return ""
+        
+#         # if (len(s) == len(t) and s == t) :
+#         #     return s
+        
+#         targetChars = Counter(t)
+#         minimumLength = math.inf
+#         validCharCounter = 0
+#         windowCounter = Counter()
+#         left=0
+#         minLeftPointer = -1
+
+#         for i, c in enumerate(s):
+#             windowCounter[c] += 1
+
+#             if targetChars[c] >= windowCounter[c]:
+#                 validCharCounter += 1
+
+#             while validCharCounter == len(t) :
+
+#                 if i - left + 1 < minimumLength:
+#                     minimumLength = i - left + 1
+#                     minLeftPointer = left
+
+#                 if targetChars[s[left]] >= windowCounter[s[left]]:
+#                     validCharCounter -= 1
+                
+#                 windowCounter[s[left]] -= 1
+#                 left += 1
+#         return "" if minLeftPointer < 0 else s[int(minLeftPointer):int(minLeftPointer) + minimumLength]
+
+
+
+# b = Solution()
+# print(b.minWindow("abc", "cba"))
+
+# from typing import List
+
+# class Solution:
+    
+#     def isValidSudoku(self, board: List[List[str]]) -> bool:
+        
+#         row = [[False] * 9 for _ in range(9)]
+#         col = [[False] * 9 for _ in range(9)]
+#         subMatrix = [[False] * 9 for _ in range(9)]
+#         # print(row)
+#         # print(col)
+#         # print(subMatrix)
+#         width = 9
+#         height = 9
+        
+#         for i in range(height):
+
+#             for j in range(width):
+
+#                 if board[i][j] == '.':
+#                     continue
+
+#                 num = int(board[i][j]) - 1
+
+#                 indexOfSubMatrix = (i//3) * 3 + j//3
+
+#                 if row[i][num] or col[j][num] or subMatrix[indexOfSubMatrix][num]:
+#                     return False
+
+#                 row[i][num] = True
+#                 col[j][num] = True
+#                 subMatrix[indexOfSubMatrix][num] = True
+                
+#         return True
+
+
+# b = Solution()
+# print(b.isValidSudoku([["5","3",".",".","7",".",".",".","."]
+# ,["6",".",".","1","9","5",".",".","."]
+# ,[".","9","8",".",".",".",".","6","."]
+# ,["8",".",".",".","6",".",".",".","3"]
+# ,["4",".",".","8",".","3",".",".","1"]
+# ,["7",".",".",".","2",".",".",".","6"]
+# ,[".","6",".",".",".",".","2","8","."]
+# ,[".",".",".","4","1","9",".",".","5"]
+# ,[".",".",".",".","8",".",".","7","9"]]))
+
+from typing import List
+
+class Solution:
+
+    def traverse(self,matrix, indexCol, indexRow):
+
+
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        
