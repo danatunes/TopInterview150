@@ -379,12 +379,69 @@
 # ,[".",".",".","4","1","9",".",".","5"]
 # ,[".",".",".",".","8",".",".","7","9"]]))
 
+from collections import Counter
 from typing import List
 
 class Solution:
 
-    def traverse(self,matrix, indexCol, indexRow):
+#     def traverse(self,matrix, initialY, initialX, endY, endX) :
 
+#         if(len(matrix)//2-1 == initialY and len(matrix[0])//2-1 == initialX):
+#                 return
+#         if initialX < endX :
+#                 print(matrix[initialY][initialX])
+#                 initialX += 1
+#                 self.traverse(matrix, initialY, initialX, endY, endX)
+#         if initialY < endY :
+#                 print(matrix[initialY][initialX])
+#                 initialY += 1
+#                 self.traverse(matrix,  initialY, initialX, endY, endX)
+#         if initialX > 0 :
+#                 print(matrix[initialY][initialX])
+#                 initialX -= 1
+#                 self.traverse(matrix, initialY, initialX, endY, endX)
+#         if initialY > 0 :
+#                 print(matrix[initialY][initialX])
+#                 initialY -=1
+#                 self.traverse(matrix, initialY, initialX, endY, endX)
+                
 
-    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+    def spiralOrder(self, matrix):
+      
+        # Define matrix dimensions.
+        rows, cols = len(matrix), len(matrix[0])
+      
+        # Define directions for spiral movement (right, down, left, up).
+        directions = ((0, 1), (1, 0), (0, -1), (-1, 0))
+      
+        # Initialize row and column indices and the direction index.
+        row = col = direction_index = 0
+      
+        # Initialize the answer list and a set to keep track of visited cells.
+        result = []
+        visited = set()
+      
+        # Iterate over the cells of the matrix.
+        for _ in range(rows * cols):
+            # Append the current element to the result list.
+            result.append(matrix[row][col])
+            # Mark the current cell as visited.
+            visited.add((row, col))
+          
+            # Calculate the next cell's position based on the current direction.
+            next_row, next_col = row + directions[direction_index][0], col + directions[direction_index][1]
+            
+        #     Check if the next cell is within bounds and not visited.
+            if not (0 <= next_row < rows) or not (0 <= next_col < cols) or (next_row, next_col) in visited:
+                # Change direction if out of bounds or cell is already visited.
+                direction_index = (direction_index + 1) % 4
+          
+            # Update the row and column indices to the next cell's position.
+            row += directions[direction_index][0]
+            col += directions[direction_index][1]
+      
+        # Return the result list.
+        return result
         
+b=Solution()
+b.spiralOrder([[1,2,3],[4,5,6],[7,8,9],[7,8,9]])
